@@ -27,15 +27,7 @@
                 <div class="column">
                     <button onclick="setMode('source')">Set Source</button>
                     <button onclick="setMode('destination')">Set Destination</button>
-                    <!-- Replace the Set Obstacle button with this -->
-                    <div class="obstacle-dropdown">
-                        <button class="dropdown-toggle" onclick="toggleObstacleDropdown()">Set Obstacle ▼</button>
-                        <div class="dropdown-menu" id="obstacleDropdown">
-                            <button onclick="setObstacleType('island')">Island (Cost: 10)</button>
-                            <button onclick="setObstacleType('reef')">Reef (Cost: 3)</button>
-                            <button onclick="setObstacleType('rock')">Rock (Cost: 6)</button>
-                        </div>
-                    </div>
+                    <button onclick="setMode('obstacle')">Set Obstacle</button>
                     <button onclick="generateObstacles()">Generate Obstacles</button>
                     <button onclick="toggleReturnPath()" id="toggleReturnPath">Show Return Path</button>
                     <button onclick="saveGrid()">Save</button>
