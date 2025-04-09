@@ -2,15 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Grid Pathfinding</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
     <div class="main-container">
-
         <!-- Grid (Left Side) -->
         <div class="grid-container">
             <canvas id="gridCanvas"></canvas>
@@ -20,19 +19,41 @@
         <div class="controls">
             <h1>Grid Pathfinding</h1>
 
-            <label for="gridSize">Grid Size (20-100):</label>
-            <input type="number" id="gridSize" min="20" max="100" value="20">
+            <label for="gridSize">Grid Size (40-200):</label>
+            <input type="number" id="gridSize" min="40" max="200" value="40" />
             <button onclick="initGrid()">Apply Grid Size</button>
-            <br>
 
-            <button onclick="setMode('source')">Set Source</button>
-            <button onclick="setMode('destination')">Set Destination</button>
-            <button onclick="setMode('obstacle')">Set Obstacle</button>
-            <button onclick="setMode('remove')">Remove</button>
-            <button onclick="generateObstacles()">Generate Random Obstacles</button>
-            <button onclick="findPath()">Find Path</button>
-            <button onclick="clearGrid()">Clear Grid</button>
-            <br>
+            <div class="control-columns">
+                <div class="column">
+                    <button onclick="setMode('source')">Set Source</button>
+                    <button onclick="setMode('destination')">Set Destination</button>
+                    <!-- Replace the Set Obstacle button with this -->
+                    <div class="obstacle-dropdown">
+                        <button class="dropdown-toggle" onclick="toggleObstacleDropdown()">Set Obstacle ▼</button>
+                        <div class="dropdown-menu" id="obstacleDropdown">
+                            <button onclick="setObstacleType('island')">Island (Cost: 10)</button>
+                            <button onclick="setObstacleType('reef')">Reef (Cost: 3)</button>
+                            <button onclick="setObstacleType('rock')">Rock (Cost: 6)</button>
+                        </div>
+                    </div>
+                    <button onclick="generateObstacles()">Generate Obstacles</button>
+                    <button onclick="toggleReturnPath()" id="toggleReturnPath">Show Return Path</button>
+                    <button onclick="saveGrid()">Save</button>
+                </div>
+                <div class="column">
+                    <button onclick="setMode('remove')">Remove</button>
+                    <button onclick="findPath()">Find Path</button>
+                    <button onclick="clearGrid()">Clear Grid</button>
+                    <button onclick="replayPaths()">Replay Path</button>
+                    <button onclick="loadGrid()">Load</button>
+                    <input type="file" id="loadInput" style="display: none;" onchange="handleLoad(event)" />
+                </div>
+            </div>
+
+            <label>
+                <input type="checkbox" id="allowDiagonal" checked />
+                Allow Diagonal Movement
+            </label>
 
             <label for="weather">Weather:</label>
             <select id="weather" onchange="updateWeather()">
@@ -40,15 +61,14 @@
                 <option value="rain">Rain</option>
                 <option value="storm">Storm</option>
             </select>
-            <br>
 
             <p>Sources: <span id="sourceCount">0</span></p>
             <p>Destinations: <span id="destinationCount">0</span></p>
             <p>Obstacles: <span id="obstacleCount">0</span></p>
-            <p>Paths: <span id="pathCount">0</span></p>
+            <p>Paths: <span id="pathCount">0</span></p><br>
+
             <p>Path Cost: <span id="pathCost">0</span></p>
         </div>
-
     </div>
 
     <script src="script.js"></script>
